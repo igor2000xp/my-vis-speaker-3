@@ -16,6 +16,9 @@ interface ProgressEntry {
 interface ProgressStatistics {
   totalSessions: number;
   totalErrors: number;
+  totalDuration: number;
+  sessionDates: string[];
+  sessionCounts: number[];
   errorTypeBreakdown: { type: string; count: number }[];
   // Add other aggregated statistics
   // Add other aggregated statistics
@@ -67,6 +70,7 @@ export class ProgressService {
         let totalDuration = 0;
         let totalErrors = 0;
         const errorTypeBreakdown: { [key: string]: number } = {};
+        const sessionCountsByDate: { [key: string]: number } = {};
 
         querySnapshot.forEach(doc => {
 
@@ -81,6 +85,13 @@ export class ProgressService {
           if (entry.sessionDuration) {
             totalDuration += entry.sessionDuration;
           }
+
+          // Aggregate sessions by date
+          if (entry.timestamp) {
+            const date = entry.timestamp.toDate().toISOString().split('T')[0]; // Format as YYYY-MM-DD
+            sessionCountsByDate[date] = (sessionCountsByDate[date] || 0) + 1;
+          }
+
         });
 
         const errorTypeBreakdownArray = Object.keys(errorTypeBreakdown).map(key => ({
@@ -89,9 +100,13 @@ export class ProgressService {
         }));
 
         return {
-          totalSessions: totalSessions,
+          totalSessions: totalSessions, // Keep total sessions for overall count
           totalDuration: totalDuration,
           totalErrors: totalErrors,
+          sessionDates: Object.keys(sessionCountsByDate).sort(),
+          sessionCounts: Object.keys(sessionCountsByDate)
+            .sort()
+            .map(date => sessionCountsByDate[date]),
           errorTypeBreakdown: errorTypeBreakdownArray
         };
       })

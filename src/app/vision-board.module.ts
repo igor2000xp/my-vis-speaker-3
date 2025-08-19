@@ -10,9 +10,9 @@ const routes: Routes = [
 
 
 @NgModule({
-  declarations: [VisionBoardComponent],
+  declarations: [],
   imports: [
-    CommonModule, FormsModule, ReactiveFormsModule, RouterModule.forChild(routes)
+    CommonModule, VisionBoardComponent, FormsModule, ReactiveFormsModule, RouterModule.forChild(routes)
   ]
 })
 export class VisionBoardModule { }

@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { Chart, registerables } from 'chart.js';
 @Component({
   selector: 'app-progress',
-  standalone: false,
+  standalone: true,
   templateUrl: './progress.component.html',
   styleUrl: './progress.component.scss'
 })
@@ -22,12 +22,12 @@ export class ProgressComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     Chart.register(...registerables);
 
-    this.progress$ = this.progressService.getProgress().pipe(
+    this.progress$ = this.progressService.getUserProgress().pipe(
       map(progressData => {
         // Process data for visualizations
-        const errorTypes = progressData.errorTypes || {};
-        const sessionDates = progressData.sessions ? Object.keys(progressData.sessions).sort() : [];
-        const sessionCounts = sessionDates.map(date => progressData.sessions[date].count);
+        const errorTypes = progressData.errorTypeBreakdown || {};
+        const sessionDates = progressData.sessionDates || [];
+        const sessionCounts = progressData.sessionCounts || [];
 
         return {
           errorTypes,
