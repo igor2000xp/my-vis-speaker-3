@@ -1,5 +1,13 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, collection, addDoc, query, where, getDocs, Timestamp } from '@angular/fire/firestore';
+import {
+  Firestore,
+  collection,
+  addDoc,
+  query,
+  where,
+  getDocs,
+  Timestamp,
+} from '@angular/fire/firestore';
 import { Auth } from '@angular/fire/auth';
 import { Observable, from } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
@@ -25,7 +33,7 @@ interface ProgressStatistics {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProgressService {
   private firestore: Firestore = inject(Firestore);
@@ -35,7 +43,11 @@ export class ProgressService {
     return collection(this.firestore, 'progress');
   }
 
-  recordPracticeSession(sessionDuration: number, errors: { type: string; count: number }[] = [], additionalMetrics: any = {}): Observable<void> {
+  recordPracticeSession(
+    sessionDuration: number,
+    errors: { type: string; count: number }[] = [],
+    additionalMetrics: any = {},
+  ): Observable<void> {
     const user = this.auth.currentUser;
     if (!user) {
       return from(Promise.reject('User not authenticated'));
@@ -47,12 +59,11 @@ export class ProgressService {
       timestamp: Timestamp.now(),
       sessionDuration: sessionDuration,
       errors: errors,
-      ...additionalMetrics // Include any additional metrics provided
-
+      ...additionalMetrics, // Include any additional metrics provided
     };
 
     return from(addDoc(this.progressCollection, progressEntry)).pipe(
-      map(() => void 0) // Map to void since addDoc doesn't return a specific value we need to expose
+      map(() => void 0), // Map to void since addDoc doesn't return a specific value we need to expose
     );
   }
 
@@ -73,7 +84,6 @@ export class ProgressService {
         const sessionCountsByDate: { [key: string]: number } = {};
 
         querySnapshot.forEach(doc => {
-
           const entry = doc.data() as ProgressEntry;
           totalSessions++;
           if (entry.errors) {
@@ -91,12 +101,11 @@ export class ProgressService {
             const date = entry.timestamp.toDate().toISOString().split('T')[0]; // Format as YYYY-MM-DD
             sessionCountsByDate[date] = (sessionCountsByDate[date] || 0) + 1;
           }
-
         });
 
         const errorTypeBreakdownArray = Object.keys(errorTypeBreakdown).map(key => ({
           type: key,
-          count: errorTypeBreakdown[key]
+          count: errorTypeBreakdown[key],
         }));
 
         return {
@@ -107,9 +116,9 @@ export class ProgressService {
           sessionCounts: Object.keys(sessionCountsByDate)
             .sort()
             .map(date => sessionCountsByDate[date]),
-          errorTypeBreakdown: errorTypeBreakdownArray
+          errorTypeBreakdown: errorTypeBreakdownArray,
         };
-      })
+      }),
     );
   }
 

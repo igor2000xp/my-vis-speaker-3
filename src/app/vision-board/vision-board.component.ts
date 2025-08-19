@@ -13,7 +13,7 @@ import { ProgressComponent } from '../progress/progress.component';
   standalone: true,
   imports: [CommonModule, GoalFormComponent],
   templateUrl: './vision-board.component.html',
-  styleUrl: './vision-board.component.scss'
+  styleUrl: './vision-board.component.scss',
 })
 export class VisionBoardComponent implements OnInit, OnDestroy {
   goals: Goal[] = [];
@@ -24,47 +24,62 @@ export class VisionBoardComponent implements OnInit, OnDestroy {
   sortCriteria: string = '';
   showGoalForm = false;
   selectedGoal: Goal | null = null;
-  availableCategories: string[] = ['Vocabulary', 'Fluency', 'Grammar', 'Pronunciation', 'Listening', 'Speaking', 'Writing', 'Reading', 'Other']; // Example categories
+  availableCategories: string[] = [
+    'Vocabulary',
+    'Fluency',
+    'Grammar',
+    'Pronunciation',
+    'Listening',
+    'Speaking',
+    'Writing',
+    'Reading',
+    'Other',
+  ]; // Example categories
   selectedCategory: string | null = null;
- showConversation = false;
+  showConversation = false;
 
   showProgress = false;
- private speechSubscription: Subscription | undefined;
- isListening = false;
+  private speechSubscription: Subscription | undefined;
+  isListening = false;
 
-  constructor(private goalService: GoalService, private speechRecognitionService: SpeechRecognitionService) {}
+  constructor(
+    private goalService: GoalService,
+    private speechRecognitionService: SpeechRecognitionService,
+  ) {}
 
   /**
- * Initializes the component and subscribes to the goals data.
- */
+   * Initializes the component and subscribes to the goals data.
+   */
   ngOnInit(): void {
     this.goalsSubscription = this.goalService.getGoals().subscribe(goals => {
       this.goals = goals; // Assign fetched goals
- this.applyFiltersAndSorting(); // Apply initial filter and sorting
+      this.applyFiltersAndSorting(); // Apply initial filter and sorting
     });
 
- this.speechSubscription = this.speechRecognitionService.recognizedText.subscribe(text => console.log('Recognized text:', text));
+    this.speechSubscription = this.speechRecognitionService.recognizedText.subscribe(text =>
+      console.log('Recognized text:', text),
+    );
   }
 
   /**
- * Unsubscribes from the goals data on component destruction.
- */
+   * Unsubscribes from the goals data on component destruction.
+   */
   ngOnDestroy(): void {
     this.goalsSubscription?.unsubscribe();
- this.speechSubscription?.unsubscribe();
+    this.speechSubscription?.unsubscribe();
   }
 
   /**
- * Opens the form for adding a new goal.
- */
+   * Opens the form for adding a new goal.
+   */
   openAddGoalForm(): void {
     this.selectedGoal = null;
     this.showGoalForm = true;
   }
 
   /**
- * Opens the form for editing an existing goal.
- */
+   * Opens the form for editing an existing goal.
+   */
   openEditGoalForm(goal: Goal): void {
     this.selectedGoal = goal;
     this.showGoalForm = true;
@@ -80,17 +95,17 @@ export class VisionBoardComponent implements OnInit, OnDestroy {
   }
 
   /**
- * Cancels the goal form.
- */
+   * Cancels the goal form.
+   */
   cancelGoalForm(): void {
     this.selectedGoal = null;
     this.showGoalForm = false;
   }
 
   /**
- * Deletes a goal.
- * @param goalId The ID of the goal to delete.
- */
+   * Deletes a goal.
+   * @param goalId The ID of the goal to delete.
+   */
   deleteGoal(goalId?: string): void {
     if (goalId) {
       this.goalService.deleteGoal(goalId);
@@ -98,54 +113,56 @@ export class VisionBoardComponent implements OnInit, OnDestroy {
   }
 
   /**
- * Toggles the completed status of a goal.
- * @param goal The goal to toggle the status of.
- */
+   * Toggles the completed status of a goal.
+   * @param goal The goal to toggle the status of.
+   */
   toggleGoalCompleted(goal: Goal): void {
     const updatedGoal = { ...goal, completed: !goal.completed };
     this.goalService.updateGoal(updatedGoal);
   }
 
   /**
- * Sets the selected category for filtering goals.
- * @param category The category to filter by.
- */
+   * Sets the selected category for filtering goals.
+   * @param category The category to filter by.
+   */
   filterByCategory(category: string | null): void {
     this.selectedCategory = category;
-    this.filteredGoals = this.selectedCategory ? this.goals.filter(goal => goal.category === this.selectedCategory) : this.goals;
+    this.filteredGoals = this.selectedCategory
+      ? this.goals.filter(goal => goal.category === this.selectedCategory)
+      : this.goals;
   }
 
   /**
- * Opens the AI conversation view.
- */
+   * Opens the AI conversation view.
+   */
   openConversation(): void {
     this.showConversation = true;
   }
 
   /**
- * Closes the AI conversation view.
- */
+   * Closes the AI conversation view.
+   */
   closeConversation(): void {
     this.showConversation = false;
   }
 
   /**
- * Opens the progress view.
- */
+   * Opens the progress view.
+   */
   openProgress(): void {
     this.showProgress = true;
   }
 
   /**
- * Closes the progress view.
- */
+   * Closes the progress view.
+   */
   closeProgress(): void {
     this.showProgress = false;
   }
 
   /**
- * Toggles speech recognition on and off.
- */
+   * Toggles speech recognition on and off.
+   */
   toggleSpeechRecognition(): void {
     if (this.isListening) {
       this.speechRecognitionService.stopListening();

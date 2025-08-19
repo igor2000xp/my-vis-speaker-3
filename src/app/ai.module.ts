@@ -4,20 +4,21 @@ import { ConversationComponent } from './conversation/conversation.component';
 import { ProgressComponent } from './progress/progress.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-
-
 @NgModule({
-  declarations: [
-    
-  ],
+  declarations: [],
   imports: [
     ConversationComponent,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    ProgressComponent
+    ProgressComponent,
   ],
   exports: [
-    ConversationComponent, ProgressComponent, CommonModule, FormsModule, ReactiveFormsModule]
+    ConversationComponent,
+    ProgressComponent,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
 })
-export class AiModule { }
+export class AiModule {}

@@ -8,9 +8,8 @@ describe('VisionBoardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [VisionBoardComponent]
-    })
-    .compileComponents();
+      imports: [VisionBoardComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(VisionBoardComponent);
     component = fixture.componentInstance;

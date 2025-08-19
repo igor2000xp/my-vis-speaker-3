@@ -1,26 +1,35 @@
 import { Injectable, inject } from '@angular/core';
-import { Auth } from '@angular/fire/auth';
+import {
+  Auth,
+  User,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signOut,
+  authState as firebaseAuthState,
+} from '@angular/fire/auth';
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private auth: Auth = inject(Auth);
 
-  constructor() { }
+  constructor() {}
 
-  login() {
-    // Placeholder for login logic
-    console.log('Login method called');
+  login(email: string, password: string): Promise<any> {
+    return signInWithEmailAndPassword(this.auth, email, password);
   }
 
-  register() {
-    // Placeholder for registration logic
-    console.log('Register method called');
+  register(email: string, password: string): Promise<any> {
+    return createUserWithEmailAndPassword(this.auth, email, password);
   }
 
-  logout() {
-    // Placeholder for logout logic
-    console.log('Logout method called');
+  logout(): Promise<void> {
+    return signOut(this.auth);
+  }
+
+  authState(): Observable<User | null> {
+    return firebaseAuthState(this.auth);
   }
 }

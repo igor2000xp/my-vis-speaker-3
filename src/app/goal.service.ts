@@ -1,5 +1,16 @@
 import { inject, Injectable } from '@angular/core';
-import { Firestore, collection, collectionData, doc, addDoc, updateDoc, deleteDoc, DocumentData, CollectionReference, DocumentReference } from '@angular/fire/firestore';
+import {
+  Firestore,
+  collection,
+  collectionData,
+  doc,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  DocumentData,
+  CollectionReference,
+  DocumentReference,
+} from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Goal } from './goal.model';
 import { Auth } from '@angular/fire/auth';
@@ -7,7 +18,7 @@ import { switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GoalService {
   private firestore: Firestore = inject(Firestore);

@@ -8,11 +8,11 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './goal-form.component.html',
-  styleUrl: './goal-form.component.scss'
+  styleUrl: './goal-form.component.scss',
 })
 export class GoalFormComponent implements OnChanges {
   @Input() goal: Goal | null = null;
- @Output() save = new EventEmitter<{ goal: Goal, imageFile: File | null }>();
+  @Output() save = new EventEmitter<{ goal: Goal; imageFile: File | null }>();
   // @Output() save = new EventEmitter<Goal>();
 
   goalForm: FormGroup;
@@ -26,7 +26,7 @@ export class GoalFormComponent implements OnChanges {
       completed: [false],
       image: [null], // Form control for the file input
       dueDate: [null], // Form control for due date
-      archived: [false] // Form control for archiving
+      archived: [false], // Form control for archiving
     });
   }
 

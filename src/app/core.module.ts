@@ -8,20 +8,17 @@ import { ProgressService } from './progress.service';
 import { SpeechRecognitionService } from './speech-recognition.service';
 import { TextToSpeechService } from './text-to-speech.service';
 
-
-
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  exports: [CommonModule, FormsModule, ReactiveFormsModule],
+  providers: [
+    AuthService,
+    GoalService,
+    ConversationService,
+    ProgressService,
+    SpeechRecognitionService,
+    TextToSpeechService,
   ],
-  exports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule
-  ],
-  providers: [AuthService, GoalService, ConversationService, ProgressService, SpeechRecognitionService, TextToSpeechService]
 })
-export class CoreModule { }
+export class CoreModule {}

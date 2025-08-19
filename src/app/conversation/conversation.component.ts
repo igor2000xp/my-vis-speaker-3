@@ -11,11 +11,11 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './conversation.component.html',
-  styleUrl: './conversation.component.scss'
+  styleUrl: './conversation.component.scss',
 })
 export class ConversationComponent implements OnInit, OnDestroy {
   recognizedText: string = '';
-  conversationHistory: { type: 'user' | 'ai', text: string, feedback?: any }[] = [];
+  conversationHistory: { type: 'user' | 'ai'; text: string; feedback?: any }[] = [];
   isListening: boolean = false;
   private speechSubscription: Subscription | undefined;
 
@@ -23,7 +23,7 @@ export class ConversationComponent implements OnInit, OnDestroy {
     private speechRecognitionService: SpeechRecognitionService,
     private conversationService: ConversationService,
     private textToSpeechService: TextToSpeechService,
-    private progressService: ProgressService
+    private progressService: ProgressService,
   ) {}
 
   ngOnInit(): void {
@@ -67,5 +67,4 @@ export class ConversationComponent implements OnInit, OnDestroy {
       }
     });
   }
-
 }

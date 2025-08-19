@@ -8,7 +8,7 @@ import { Chart, registerables } from 'chart.js';
   selector: 'app-progress',
   standalone: true,
   templateUrl: './progress.component.html',
-  styleUrl: './progress.component.scss'
+  styleUrl: './progress.component.scss',
 })
 export class ProgressComponent implements OnInit, OnDestroy {
   progress$: Observable<any> | undefined; // Use Observable for async data
@@ -32,9 +32,9 @@ export class ProgressComponent implements OnInit, OnDestroy {
         return {
           errorTypes,
           sessionDates,
-          sessionCounts
+          sessionCounts,
         };
-      })
+      }),
     );
 
     this.progressSubscription = this.progress$.subscribe(data => {
@@ -62,11 +62,13 @@ export class ProgressComponent implements OnInit, OnDestroy {
         type: 'pie',
         data: {
           labels: Object.keys(errorTypes),
-          datasets: [{
-            data: Object.values(errorTypes),
-            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9900'], // Example colors
-          }]
-        }
+          datasets: [
+            {
+              data: Object.values(errorTypes),
+              backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9900'], // Example colors
+            },
+          ],
+        },
       });
     }
   }
@@ -78,12 +80,14 @@ export class ProgressComponent implements OnInit, OnDestroy {
         type: 'bar',
         data: {
           labels: dates,
-          datasets: [{
-            label: 'Practice Sessions',
-            data: counts,
-            backgroundColor: '#36A2EB',
-          }]
-        }
+          datasets: [
+            {
+              label: 'Practice Sessions',
+              data: counts,
+              backgroundColor: '#36A2EB',
+            },
+          ],
+        },
       });
     }
   }
