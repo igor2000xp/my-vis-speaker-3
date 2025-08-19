@@ -1,0 +1,50 @@
+<h2>My Learning Goals</h2>
+
+<div>
+  <label for="search">Search:</label>
+  <input id="search" type="text" (input)="applyFiltersAndSorting()">
+</div>
+
+<div>
+  <label for="sort">Sort by:</label>
+  <select id="sort" (change)="applyFiltersAndSorting()">
+    <option value="title">Title</option>
+    <option value="completed">Completed</option>
+  </select>
+  Filter by Category:
+  <select (change)="filterByCategory($event)">
+    <option value="">All</option>
+    <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+  </select>
+</div>
+<div>
+  <label>
+    <input type="checkbox" [(ngModel)]="showArchived" (change)="applyFiltersAndSorting()"> Show Archived
+  </label>
+</div>
+
+<div class="goals-container">
+  <div class="goal-card" *ngFor="let goal of filteredGoals" [class.completed]="goal.completed">
+    <h3 class="goal-title">{{ goal.title }} <i class="fas fa-bullseye"></i></h3>
+    <p>{{ goal.description }}</p>
+    <p>Category: {{ goal.category }} <i class="fas fa-tag"></i></p>
+    <input type="checkbox" [checked]="goal.completed" (change)="toggleGoalCompleted(goal)"> Completed
+    <p *ngIf="goal.dueDate">Due Date: {{ goal.dueDate | date }}</p>
+    <button (click)="openEditGoalForm(goal)"><i class="fas fa-edit"></i> Edit</button>
+    <button (click)="deleteGoal(goal.id!)"><i class="fas fa-trash-alt"></i> Delete</button>
+    <button *ngIf="!goal.archived" (click)="archiveGoal(goal)"><i class="fas fa-archive"></i> Archive</button>
+  </div>
+</div>
+<!-- Microphone button for speech recognition -->
+<button (click)="toggleListening()">Microphone</button>
+
+<app-goal-form *ngIf="showGoalForm" [goal]="selectedGoal" (goalSaved)="saveGoal($event)"></app-goal-form>
+
+
+<div *ngIf="showConversation">
+  <app-conversation (closeConversation)="closeConversation()"></app-conversation>
+</div>
+
+<div *ngIf="showProgress">
+  <app-progress (closeProgress)="closeProgress()"></app-progress>
+</div>

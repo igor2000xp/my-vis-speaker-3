@@ -1,0 +1,15 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Define color variables */
+:root {
+  --primary-color: hsl(210, 70%, 50%); /* #3399FF */
+  --background-color: hsl(210, 20%, 95%); /* #F0F8FF */
+  --accent-color: hsl(240, 80%, 60%); /* #4D4DFF */
+}
+
+/* Set default font */
+body {
+  font-family: 'PT Sans', sans-serif;
+  background-color: var(--background-color);
+  margin: 0;
+}

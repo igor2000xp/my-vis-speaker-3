@@ -1,0 +1,44 @@
+<form [formGroup]="goalForm" (ngSubmit)="onSubmit()" class="goal-form">
+  <div class="form-group">
+    <label for="title" class="form-label">Title:</label>
+    <input id="title" formControlName="title" required class="form-input">
+  </div>
+
+  <div class="form-group">
+    <label for="description" class="form-label">Description:</label>
+    <textarea id="description" formControlName="description" class="form-textarea"></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="category" class="form-label">Category:</label>
+    <select id="category" formControlName="category" class="form-select">
+      <option value="">Select Category</option>
+      <option value="vocabulary">Vocabulary</option>
+      <option value="fluency">Fluency</option>
+      <option value="grammar">Grammar</option>
+    </select>
+  </div>
+  <!-- <div class="form-group">
+    <label for="category-input" class="form-label">Category (or enter new):</label>
+    <input id="category-input" formControlName="category" class="form-input">
+  </div> -->
+
+  <div class="form-group">
+    <label for="image" class="form-label">Image:</label>
+    <input type="file" id="image" (change)="onFileSelected($event)" class="form-input-file">
+  </div>
+
+  <div class="form-group">
+    <label for="dueDate" class="form-label">Due Date:</label>
+    <input type="date" id="dueDate" formControlName="dueDate" class="form-input">
+  </div>
+
+  <div class="form-group form-group-checkbox">
+    <input type="checkbox" id="archived" formControlName="archived" class="form-checkbox">
+    <label for="archived" class="form-label">Archive Goal</label>
+  </div>
+  <button type="submit" class="form-button">
+    <i class="fas fa-save"></i> Save Goal
+  </button>
+</form>
+

@@ -1,0 +1,25 @@
+form {
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: var(--background-color); /* Using the background color variable */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: 'PT Sans', sans-serif; /* Applying the font */
+}
+
+div {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input[type="text"],
+textarea,
+input[type="file"] {
+  width: 100%;
+  padding: 8px;
+}

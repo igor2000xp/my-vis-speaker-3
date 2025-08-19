@@ -1,0 +1,20 @@
+<div class="conversation-container">
+  <h2>AI Conversation</h2>
+  <div class="conversation-history">
+    <div *ngFor="let message of conversationHistory" [ngClass]="{'user-message': message.sender === 'User', 'ai-message': message.sender === 'AI'}">
+ <p class="message-text">
+        <strong *ngIf="message.sender === 'User'"><i class="fas fa-user"></i> {{ message.sender }}:</strong>
+        <strong *ngIf="message.sender === 'AI'"><i class="fas fa-robot"></i> {{ message.sender }}:</strong>
+        {{ message.text }}
+      </p>
+      <p *ngIf="message.feedback" class="feedback"><em>Feedback:</em> {{ message.feedback }}</p>
+      <p *ngIf="message.pronunciationFeedback" class="pronunciation-feedback"><em>Pronunciation:</em> {{ message.pronunciationFeedback }}</p>
+    </div>
+  </div>
+  <div class="input-area">
+    <button (click)="toggleSpeechRecognition()" class="microphone-button">
+      <i class="fas" [ngClass]="{'fa-microphone': !isListening, 'fa-stop-circle': isListening}"></i> {{ isListening ? 'Stop Listening' : 'Start Listening' }}
+    </button>
+    <p *ngIf="recognizedText" class="recognized-text">Recognized Text: {{ recognizedText }}</p>
+    </div>
+</div>

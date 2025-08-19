@@ -1,0 +1,29 @@
+:host {
+  display: block;
+  padding: 20px;
+  background-color: var(--background-color);
+}
+
+.goals-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.goal-card {
+  background-color: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.goal-card.completed {
+  background-color: #e0ffe0; /* Lighter green background for completed goals */
+  transition: background-color 0.5s ease; /* Subtle animation on background color change */
+  border-left: 5px solid var(--primary-color); /* Add a colored border */
+  animation: complete-pulse 1s ease-in-out infinite alternate; /* Optional pulse animation */
+}
+
+@keyframes complete-pulse {
+  0% { border-color: var(--primary-color); }
+  100% { border-color: darken(var(--primary-color), 10%); }
+}

@@ -1,0 +1,38 @@
+<h2>Your Learning Progress</h2>
+
+<div *ngIf="progress" class="progress-stats">
+  <p class="stat-item"><i class="fas fa-running"></i> Practice Sessions: {{ progress.sessions }}</p>
+  <p class="stat-item"><i class="fas fa-times-circle"></i> Errors Made: {{ progress.errors }}</p>
+
+  <h3>Error Breakdown</h3>
+  <ul>
+    <li *ngFor="let errorType of errorTypes">
+      {{ errorType.type }}: {{ errorType.count }}
+    </li>
+  </ul>
+
+  <h3>Recent Practice Sessions</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Duration</th>
+        <th>Errors</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let session of recentSessions">
+        <td>{{ session.date | date }}</td>
+        <td>{{ session.duration }} minutes</td>
+        <td>{{ session.errorCount }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Placeholder for Chart -->
+  <div class="chart-container">
+    <!-- <canvas baseChart [data]="errorTypeChartData" [labels]="errorTypeChartLabels" [type]="'pie'"></canvas> -->
+    <!-- <canvas baseChart [data]="progressOverTimeChartData" [labels]="progressOverTimeChartLabels" [type]="'line'"></canvas> -->
+  </div>
+</div>
+
